@@ -1,0 +1,58 @@
+<style type="text/css">
+
+/* скрываем чекбоксы и блоки с содержанием */
+.hide, .hide + label ~ div {
+    display: none;
+
+}
+/* вид текста label */
+.hide + label,
+.hide:checked + label {
+    padding: 0;
+    color: blue;
+    cursor: pointer;
+    border-bottom: 1px dotted blue;
+}
+/* вид текста label при активном переключателе */
+.hide:checked + label {
+    color: black;
+    border-bottom: 0;
+}
+/* когда чекбокс активен показываем блоки с содержанием  */
+.hide:checked + label + div {
+    display: block;
+    background: #efefef;
+    padding: 10px;
+    background: #fff; /* цвет фона, белый */
+    border: 2px solid #C1C1C1; /* размер и цвет границы блока */
+
+
+}
+</style>
+
+    {% block content %}
+        {% for contact_info in order.user.contacts%}
+            <input class="hide" id="hd-{{contact_info.id}}" type="checkbox" >
+            <label for="hd-{{contact_info.id}}">Карточка клиента</label>
+            <div>
+                <p>Телефон:{{contact_info.mobile}}</p>
+                <p>Страна:{{contact_info.country}}</p>
+                <p>Город:{{contact_info.city}}</p>
+                <p>Индекс:{{contact_info.postcode}}</p>
+                <p>Улица:{{contact_info.street}}</p>
+                <p>Дом:{{contact_info.buildings}}</p>
+                <p>Квартира:{{contact_info.apt}}</p>
+            </div>
+        {% endfor %}
+    {% endblock %}
+
+
+
+
+
+
+
+
+
+
+

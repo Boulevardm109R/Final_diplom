@@ -1,0 +1,70 @@
+<style type="text/css">
+
+/* скрываем чекбоксы и блоки с содержанием */
+.hide, .hide + label ~ div {
+    display: none;
+
+}
+/* вид текста label */
+.hide + label,
+.hide:checked + label {
+    padding: 0;
+    color: blue;
+    cursor: pointer;
+    border-bottom: 1px dotted blue;
+}
+/* вид текста label при активном переключателе */
+.hide:checked + label {
+    color: black;
+    border-bottom: 0;
+}
+/* когда чекбокс активен показываем блоки с содержанием  */
+.hide:checked + label + div {
+    display: block;
+    background: #efefef;
+    padding: 10px;
+    background: #fff; /* цвет фона, белый */
+    border: 2px solid #C1C1C1; /* размер и цвет границы блока */
+
+
+}
+.order_item_card{
+	display: block;
+	width: 90%;
+	float: left;
+	transition: width .2s;
+    border: 1px solid #b5e9a7;
+	border-radius: 3px;
+	margin: 15px 15px 15px 15px;
+
+
+}
+</style>
+
+
+    {% block content %}
+    <input class="hide" id="hd-{{order.id}}" type="checkbox" >
+    <label for="hd-{{order.id}}">Детали заказа</label>
+    <div>
+        {% for order_items in order.order_items%}
+            <div class="order_item_card" >
+                <p>Магазин: {{order_items.shop.name}}</p>
+                <p>Товар: {{order_items.product.product.name}}</p>
+                <p>Цена за единицу: {{order_items.product.price}}</p>
+                <p>Количество: {{order_items.quantity}}</p>
+            </div>
+
+        {% endfor %}
+    </div>
+    {% endblock %}
+
+
+
+
+
+
+
+
+
+
+

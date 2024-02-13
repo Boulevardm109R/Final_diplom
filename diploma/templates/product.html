@@ -1,0 +1,87 @@
+<meta http-equiv=Content-Type content="text/html;charset=utf-8">
+<style>
+.product_card {
+	display: block;
+	width: 90%;
+	float: left;
+	transition: width .2s;
+    border: 1px solid #b5e9a7;
+	border-radius: 3px;
+	margin: 15px 15px 15px 15px;
+
+
+}
+form.form-example {
+    display: table;
+}
+
+div.form-example {
+    display: table-row;
+}
+
+label, input {
+    display: table-cell;
+    margin-bottom: 10px;
+}
+
+label {
+    padding-right: 10px;
+}
+
+.product_card_info {
+
+
+    display: block;
+	border: 1px solid #b5e9a7;
+	border-radius: 3px;
+	position: relative;
+	background: #fff;
+	margin: 20px 20px 20px 20px;
+	text-decoration: none;
+	color: #474747;
+	z-index: 0;
+    padding: 0;
+    float: left
+
+
+}
+</style>
+
+
+
+
+
+
+<div class="product_card" >
+
+    <p> {{ form.name }} </p>
+    <p> Категория: {{ form.category }} </p>
+
+
+    {% for shop in form.info %}
+
+
+        <div class="product_card_info">
+
+            Магазин : {{shop.shop}}
+            Цена <b>{{shop.price}}</b>
+            Цена до <b>{{shop.price_rrc}}</b>
+            Остаток <b>{{shop.quantity}}</b>
+            {% include "product_info.html" %}
+
+            <form action="" method="post" class="form-example">
+                {% csrf_token %}
+
+                <div class="form-example">
+                    <label for="q-ty">Q-ty pcs: </label>
+                    <input type="number" name="qty" id="qty" required min = "1" max = "{{shop.quantity}}" value= "{{shop.ordered_items}}">
+                    <input type="hidden" name="shop_id" value="{{shop.shop_id}}">
+                    <input type="hidden" name="product_info_id" value="{{shop.product_info_id}}">
+
+                    <input type="submit" value="В корзину!">
+                </div>
+            </form>
+        </div>
+    {% endfor %}
+</div>
+
